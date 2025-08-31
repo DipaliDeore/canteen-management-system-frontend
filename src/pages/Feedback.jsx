@@ -2,7 +2,89 @@ import React, { useState } from "react";
 import food from "../assets/food-bg.png";
 
 function Feedback() {
-  const [rating, setRating] = useState(0);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    rating: 0,
+    category: "",
+    feedback: "",
+  });
+
+  const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState("");
+
+  // Regex patterns
+  const nameRegex = /^[A-Za-z\s]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  // Validate single field
+  const validateField = (field, value) => {
+    let message = "";
+
+    switch (field) {
+      case "name":
+        if (!nameRegex.test(value)) message = "Name must contain only letters and spaces";
+        break;
+      case "email":
+        if (!emailRegex.test(value)) message = "Invalid email format";
+        break;
+      case "rating":
+        if (value === 0) message = "Please select a rating";
+        break;
+      case "category":
+        if (!value) message = "Please select a category";
+        break;
+      case "feedback":
+        if (value.length < 5) message = "Feedback must be at least 5 characters long";
+        break;
+      default:
+        break;
+    }
+
+    setErrors((prev) => ({ ...prev, [field]: message }));
+  };
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+    validateField(id, value);
+  };
+
+  // Handle rating separately
+  const handleRating = (star) => {
+    setFormData((prev) => ({ ...prev, rating: star }));
+    validateField("rating", star);
+  };
+
+  // Handle submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSuccess("");
+
+    // Run final validation
+    Object.keys(formData).forEach((key) => validateField(key, formData[key]));
+
+    if (Object.values(errors).some((err) => err)) return;
+
+    try {
+      const res = await fetch("http://localhost:5000/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Submission failed");
+
+      setSuccess("Feedback submitted successfully ✅");
+      setFormData({ name: "", email: "", rating: 0, category: "", feedback: "" });
+      setErrors({});
+    } catch (err) {
+      setSuccess("");
+      setErrors((prev) => ({ ...prev, submit: err.message }));
+    }
+  };
 
   return (
     <div
@@ -24,10 +106,10 @@ function Feedback() {
         style={{
           marginLeft: "auto",
           marginRight: "160px",
-          maxWidth: "480px", // ✅ slightly smaller width
+          maxWidth: "480px",
           width: "100%",
           background: "rgba(0, 0, 0, 0.65)",
-          padding: "18px 20px", // ✅ reduced padding
+          padding: "18px 20px",
           borderRadius: "10px",
           color: "#fff",
         }}
@@ -36,33 +118,38 @@ function Feedback() {
           Feedback Form
         </h3>
 
-        <form>
+        {success && <div className="alert alert-success py-1">{success}</div>}
+        {errors.submit && <div className="alert alert-danger py-1">{errors.submit}</div>}
+
+        <form onSubmit={handleSubmit}>
           {/* Name */}
           <div className="form-group mb-2">
-            <label htmlFor="name" className="form-label small">
-              Name
-            </label>
+            <label htmlFor="name" className="form-label small">Name</label>
             <input
               type="text"
               id="name"
               className="form-control form-control-sm"
               placeholder="Enter your name"
+              value={formData.name}
+              onChange={handleChange}
               required
             />
+            {errors.name && <small className="text-danger">{errors.name}</small>}
           </div>
 
           {/* Email */}
           <div className="form-group mb-2">
-            <label htmlFor="email" className="form-label small">
-              Email
-            </label>
+            <label htmlFor="email" className="form-label small">Email</label>
             <input
               type="email"
               id="email"
               className="form-control form-control-sm"
               placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
               required
             />
+            {errors.email && <small className="text-danger">{errors.email}</small>}
           </div>
 
           {/* Rating */}
@@ -72,44 +159,51 @@ function Feedback() {
               {[1, 2, 3, 4, 5].map((star) => (
                 <span
                   key={star}
-                  onClick={() => setRating(star)}
+                  onClick={() => handleRating(star)}
                   style={{
                     cursor: "pointer",
-                    color: star <= rating ? "#ffc107" : "#aaa",
+                    color: star <= formData.rating ? "#ffc107" : "#aaa",
                   }}
                 >
                   ★
                 </span>
               ))}
             </div>
+            {errors.rating && <small className="text-danger">{errors.rating}</small>}
           </div>
 
           {/* Category */}
           <div className="form-group mb-2">
-            <label htmlFor="category" className="form-label small">
-              Category
-            </label>
-            <select id="category" className="form-select form-select-sm" required>
+            <label htmlFor="category" className="form-label small">Category</label>
+            <select
+              id="category"
+              className="form-select form-select-sm"
+              value={formData.category}
+              onChange={handleChange}
+              required
+            >
               <option value="">Select Feedback Category</option>
               <option value="service">Service Quality</option>
               <option value="product">Product Feedback</option>
               <option value="support">Customer Support</option>
               <option value="website">Website Experience</option>
             </select>
+            {errors.category && <small className="text-danger">{errors.category}</small>}
           </div>
 
           {/* Feedback */}
           <div className="form-group mb-2">
-            <label htmlFor="feedback" className="form-label small">
-              Your Feedback
-            </label>
+            <label htmlFor="feedback" className="form-label small">Your Feedback</label>
             <textarea
               id="feedback"
               className="form-control form-control-sm"
-              rows="2" // ✅ much shorter
+              rows="2"
               placeholder="Write your feedback here..."
+              value={formData.feedback}
+              onChange={handleChange}
               required
             ></textarea>
+            {errors.feedback && <small className="text-danger">{errors.feedback}</small>}
           </div>
 
           {/* Button */}
@@ -117,6 +211,7 @@ function Feedback() {
             type="submit"
             className="btn btn-sm w-100 fw-bold"
             style={{ backgroundColor: "#0d6f65", color: "white" }}
+            disabled={Object.values(errors).some((err) => err)}
           >
             Submit Feedback
           </button>

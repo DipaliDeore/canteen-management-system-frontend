@@ -46,7 +46,7 @@ function Home() {
           {/* Buttons */}
           <div className="mt-4 d-flex gap-3 justify-content-center">
             <a
-              href="#get-started"
+              href="/login"
               className="btn btn-dark fw-bold px-4 py-2 rounded-pill"
             >
               Get Started Today →
