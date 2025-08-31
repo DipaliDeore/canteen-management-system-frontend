@@ -8,7 +8,7 @@ function AboutUs() {
     <>
       <Navbar />
 
-      <section className="about-section" style={{ marginTop: "70px" }}>
+      <section className="about-section" style={{ marginTop: "40px" }}>
         <div className="row g-0" style={{ minHeight: "80vh" }}>
           {/* Left Side - Full Image */}
           <div className="col-md-6 d-flex align-items-center justify-content-center bg-light">
@@ -33,6 +33,7 @@ function AboutUs() {
                 position: "relative",
                 padding: "40px",
                 maxWidth: "600px",
+                marginBottom: "160px",
               }}
             >
               {/* Green Corner Decorations */}

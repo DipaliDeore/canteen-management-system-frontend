@@ -7,6 +7,7 @@ import LandingPage from './pages/LandingPage';
 import Feedback from './pages/Feedback';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Contact from './pages/ContactUs';
 
 function App() {
 
@@ -17,7 +18,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register/>}/>
         <Route path ="*" elememt={<PageNotFound/>}/>
+        <Route path ="/contact" element={<Contact/>}/>
         <Route path ="/feedback" element={<Feedback/>}/>
+  
       </Routes>
   );
 }
