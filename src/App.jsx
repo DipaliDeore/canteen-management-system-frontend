@@ -8,6 +8,8 @@ import Feedback from './pages/Feedback';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Contact from './pages/ContactUs';
+import Services from './pages/Services';
+import SubscriptionPlans from './pages/SubscriptionPlans';
 
 function App() {
 
@@ -19,7 +21,9 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path ="*" elememt={<PageNotFound/>}/>
         <Route path ="/contact" element={<Contact/>}/>
+        <Route path ="/services" element={<Services/>}/>
         <Route path ="/feedback" element={<Feedback/>}/>
+        <Route path ="/subscribe" element={<SubscriptionPlans/>}/>
   
       </Routes>
   );
