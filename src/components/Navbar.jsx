@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
+import { FaUtensils, FaTag, FaClock, FaPercent, FaPhone, FaMotorcycle, FaIdCard } from "react-icons/fa";
 import logo from "../assets/logo.png";
 
 function Navbar() {
@@ -25,11 +26,65 @@ function Navbar() {
           .active-link {
             color: black !important;
           }
+          /* Marquee styles */
+          .marquee-container {
+            background: linear-gradient(90deg, #0d5c55, #1a8a7f);
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1031;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            border-bottom: 2px solid #ffcc00;
+          }
+          .marquee-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 25s linear infinite;
+            white-space: nowrap;
+          }
+          .marquee-content svg {
+            margin: 0 10px;
+            color: #ffcc00;
+          }
+          .marquee-content .highlight {
+            color: #ffcc00;
+            font-weight: bold;
+          }
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+          }
+          /* Adjust navbar position */
+          .navbar-adjust {
+            top: 38px;
+          }
         `}
       </style>
 
+      {/* Marquee Section - Add this above the nav */}
+      <div className="marquee-container">
+        <div className="marquee-content">
+          <FaUtensils /> Welcome to College Canteen Management System 
+          <span className="highlight">•</span> 
+          <FaTag /> Today's Special: Paneer Tikka + Naan @ ₹99 only 
+          <span className="highlight">•</span> 
+          <FaClock /> Opening Hours: 8:00 AM - 6:00 PM 
+          <span className="highlight">•</span> 
+          <FaPercent /> Get 15% off on combo meals using code: COMBO15 
+          <span className="highlight">•</span> 
+          <FaPhone /> Quick Order: Call 98765-43210 
+          <span className="highlight">•</span> 
+          <FaMotorcycle /> Free delivery for orders above ₹200 
+          <span className="highlight">•</span> 
+          <FaIdCard /> Student Discount: 10% off with valid ID
+        </div>
+      </div>
+
       <nav
-        className="navbar navbar-expand-lg fixed-top"
+        className="navbar navbar-expand-lg fixed-top navbar-adjust"
         style={{ backgroundColor: "#15746B" }}
       >
         <div className="container">

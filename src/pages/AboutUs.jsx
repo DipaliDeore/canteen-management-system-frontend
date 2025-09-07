@@ -132,13 +132,24 @@ function AboutUs() {
                     <iframe
                       width="100%"
                       height="315"
-                      src="https://www.youtube.com/embed/DDARYvEEt8M"
-                      title="YouTube video player"
+                      src="https://www.youtube.com/embed/yL8xGDhz3YM"
+                      title="About Our Canteen Management System"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                       style={{ borderRadius: "12px" }}
                     ></iframe>
+                    <button
+                      onClick={() => setShowVideo(false)}
+                      className="btn fw-bold px-4 py-2 mt-3"
+                      style={{
+                        backgroundColor: "#6c757d",
+                        color: "white",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      Close Video
+                    </button>
                   </div>
                 )}
               </div>
