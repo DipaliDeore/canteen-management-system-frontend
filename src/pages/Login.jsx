@@ -104,6 +104,7 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              title="Email must end with @gmail.com"
             />
           </div>
 
@@ -117,6 +118,7 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              title="Password must contain at least one upper case letter, one lower case letter, and one special symbol"
             />
           </div>
 

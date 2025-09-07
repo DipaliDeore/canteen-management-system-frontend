@@ -112,6 +112,7 @@ function Register() {
                 validateField("name", e.target.value);
               }}
               required
+              title = "Name must contain letters and spaces"
             />
             {errors.name && <small className="text-danger">{errors.name}</small>}
           </div>
@@ -129,6 +130,7 @@ function Register() {
                 validateField("email", e.target.value);
               }}
               required
+              title="Email must end with @gmail.com"
             />
             {errors.email && <small className="text-danger">{errors.email}</small>}
           </div>
@@ -146,6 +148,7 @@ function Register() {
                 validateField("mobile", e.target.value);
               }}
               required
+              title="Mobile number must be exactly 10 digits"
             />
             {errors.mobile && <small className="text-danger">{errors.mobile}</small>}
           </div>
@@ -160,6 +163,7 @@ function Register() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              title="Password must contain at least one upper case letter, one lower case letter, and one special symbol"
             />
           </div>
 
@@ -176,6 +180,7 @@ function Register() {
                 validateField("confirmPassword", e.target.value);
               }}
               required
+              title="It has to be match with above password"
             />
             {errors.confirmPassword && (
               <small className="text-danger">{errors.confirmPassword}</small>
