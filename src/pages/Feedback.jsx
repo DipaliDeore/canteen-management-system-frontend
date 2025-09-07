@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import food from "../assets/food-bg.png";
 
 function Feedback() {
@@ -13,20 +13,20 @@ function Feedback() {
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState("");
 
-  // Regex patterns
+  const textareaRef = useRef(null);
+
   const nameRegex = /^[A-Za-z\s]+$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // Validate single field
+  // Validation for individual fields
   const validateField = (field, value) => {
     let message = "";
-
     switch (field) {
       case "name":
-        if (!nameRegex.test(value)) message = "Name must contain only letters and spaces";
+        if (!nameRegex.test(value.trim())) message = "Name must contain only letters and spaces";
         break;
       case "email":
-        if (!emailRegex.test(value)) message = "Invalid email format";
+        if (!emailRegex.test(value.trim())) message = "Invalid email format";
         break;
       case "rating":
         if (value === 0) message = "Please select a rating";
@@ -35,20 +35,28 @@ function Feedback() {
         if (!value) message = "Please select a category";
         break;
       case "feedback":
-        if (value.length < 5) message = "Feedback must be at least 5 characters long";
+        if (value.trim().length < 5) message = "Feedback must be at least 5 characters long";
         break;
       default:
         break;
     }
-
     setErrors((prev) => ({ ...prev, [field]: message }));
   };
 
-  // Handle input changes
+  // Handle input change
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
     validateField(id, value);
+
+    // Auto-resize for textarea
+    if (id === "feedback" && textareaRef.current) {
+      textareaRef.current.style.height = "auto"; // reset first
+      const newHeight = Math.min(textareaRef.current.scrollHeight, 150); // max height 200px
+      textareaRef.current.style.height = `${newHeight}px`;
+      textareaRef.current.style.overflowY =
+        textareaRef.current.scrollHeight > 150 ? "auto" : "hidden";
+    }
   };
 
   // Handle rating separately
@@ -57,15 +65,27 @@ function Feedback() {
     validateField("rating", star);
   };
 
-  // Handle submit
+  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSuccess("");
 
     // Run final validation
-    Object.keys(formData).forEach((key) => validateField(key, formData[key]));
+    let hasError = false;
+    Object.keys(formData).forEach((key) => {
+      validateField(key, formData[key]);
+      if (
+        (key === "name" && !nameRegex.test(formData[key].trim())) ||
+        (key === "email" && !emailRegex.test(formData[key].trim())) ||
+        (key === "feedback" && formData[key].trim().length < 5) ||
+        (key === "category" && !formData[key]) ||
+        (key === "rating" && formData[key] === 0)
+      ) {
+        hasError = true;
+      }
+    });
 
-    if (Object.values(errors).some((err) => err)) return;
+    if (hasError) return;
 
     try {
       const res = await fetch("http://localhost:5001/api/feedback", {
@@ -80,6 +100,9 @@ function Feedback() {
       setSuccess("Feedback submitted successfully ✅");
       setFormData({ name: "", email: "", rating: 0, category: "", feedback: "" });
       setErrors({});
+      if (textareaRef.current) {
+        textareaRef.current.style.height = "auto"; // reset after submit
+      }
     } catch (err) {
       setSuccess("");
       setErrors((prev) => ({ ...prev, submit: err.message }));
@@ -196,6 +219,7 @@ function Feedback() {
             <label htmlFor="feedback" className="form-label small">Your Feedback</label>
             <textarea
               id="feedback"
+              ref={textareaRef}
               className="form-control form-control-sm"
               rows="2"
               placeholder="Write your feedback here..."
