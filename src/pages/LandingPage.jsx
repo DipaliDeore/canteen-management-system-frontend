@@ -6,6 +6,7 @@ import About from "./AboutUs";
 import Footer from "../components/Footer";  // import footer
 import Feedback from "./Feedback";
 import Contact from "./ContactUs";
+import Services from './Services';
 
 
 function LandingPage() {
@@ -26,6 +27,10 @@ function LandingPage() {
 
       <div id="about" style={{ scrollMarginTop: "80px" }}>
         <About />
+      </div>
+
+      <div id="services" style={{ scrollMarginTop: "80px" }}>
+        <Services />
       </div>
 
       <div id="contact" style={{ scrollMarginTop: "80px" }}>

@@ -1,9 +1,10 @@
-// src/pages/About.jsx
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
-import burger from "../assets/burger.png"; // Replace with your burger image
+import burger from "../assets/burger.png";
 
 function AboutUs() {
+  const [showVideo, setShowVideo] = useState(false);
+
   return (
     <>
       <Navbar />
@@ -23,7 +24,11 @@ function AboutUs() {
           {/* Right Side - With green corners */}
           <div
             className="col-md-6 d-flex align-items-center justify-content-center"
-            style={{ backgroundColor: "#fff", padding: "40px", position: "relative" }}
+            style={{
+              backgroundColor: "#fff",
+              padding: "40px",
+              position: "relative",
+            }}
           >
             <div
               className="about-box p-4"
@@ -108,18 +113,34 @@ function AboutUs() {
                 affect thousands of students."
               </p>
 
+              {/* Button + Video */}
               <div className="text-center mt-4">
-                <a
-                  href="#more"
-                  className="btn fw-bold px-4 py-2"
-                  style={{
-                    backgroundColor: "#0d6f65",
-                    color: "white",
-                    borderRadius: "8px",
-                  }}
-                >
-                  More About Us
-                </a>
+                {!showVideo ? (
+                  <button
+                    onClick={() => setShowVideo(true)}
+                    className="btn fw-bold px-4 py-2"
+                    style={{
+                      backgroundColor: "#0d6f65",
+                      color: "white",
+                      borderRadius: "8px",
+                    }}
+                  >
+                    More About Us
+                  </button>
+                ) : (
+                  <div className="relative w-full max-w-lg mx-auto mt-3">
+                    <iframe
+                      width="100%"
+                      height="315"
+                      src="https://www.youtube.com/embed/DDARYvEEt8M"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      style={{ borderRadius: "12px" }}
+                    ></iframe>
+                  </div>
+                )}
               </div>
             </div>
           </div>

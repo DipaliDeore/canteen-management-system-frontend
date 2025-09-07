@@ -83,6 +83,14 @@ function Navbar() {
               <li className="nav-item">
                 <a
                   className="nav-link fw-bold text-white px-3 nav-hover"
+                  href="#services"
+                >
+                  Services
+                </a>
+              </li>
+              <li className="nav-item">
+                <a
+                  className="nav-link fw-bold text-white px-3 nav-hover"
                   href="#contact"
                 >
                   Contact Us
@@ -96,16 +104,7 @@ function Navbar() {
                   Feedback
                 </a>
               </li>
-
-              {/* Separate page links */}
-              <li className="nav-item">
-                <Link
-                  to="/services"
-                  className="nav-link fw-bold text-white px-3 nav-hover"
-                >
-                  Services
-                </Link>
-              </li>
+              
             </ul>
           </div>
 
