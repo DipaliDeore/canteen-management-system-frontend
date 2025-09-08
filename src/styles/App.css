@@ -1,0 +1,93 @@
+/* src/styles/App.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+:root {
+  --poppins: 'Poppins', sans-serif;
+  --lato: 'Lato', sans-serif;
+
+  /* Default theme (Green) */
+  --theme-primary: #2ecc71;
+  --theme-secondary: #1e2a23;
+  --theme-accent: #a8e6cf;
+  --theme-surface: #ffffff;
+  --theme-background: #eef3ef;
+  --theme-text: #212b26;
+  --theme-muted: #7b8a83;
+  --theme-text-on-dark: #f5f7f6;
+
+  --yellow: #f1c40f;
+  --orange: #e67e22;
+  --red: #e74c3c;
+}
+
+/* Blue Theme */
+[data-theme="blue"] {
+  --theme-primary: #3498db;
+  --theme-secondary: #1e3a5a;
+  --theme-accent: #cfe8ff;
+  --theme-surface: #ffffff;
+  --theme-background: #ecf0f1;
+  --theme-text: #2c3e50;
+  --theme-muted: #7f8c8d;
+  --theme-text-on-dark: #f5f7f6;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --theme-primary: #2ecc71;
+  --theme-secondary: #081b2e;
+  --theme-accent: #34495e;
+  --theme-surface: #34495e;
+  --theme-background: #2c3e50;
+  --theme-text: #ecf0f1;
+  --theme-muted: #bdc3c7;
+  --theme-text-on-dark: #ecf0f1;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+  --theme-primary: #e74c3c;
+  --theme-secondary: #f8f9fa;
+  --theme-accent: #ffd8d6;
+  --theme-surface: #ffffff;
+  --theme-background: #f5f5f5;
+  --theme-text: #2c3e50;
+  --theme-muted: #6c757d;
+  --theme-text-on-dark: #2c3e50; /* Light theme uses dark text on light sidebar */
+}
+
+/* Apply theme variables to your existing CSS structure */
+:root {
+  --sidebar-bg: var(--theme-secondary);
+  --navbar-bg: var(--theme-secondary);
+  --surface: var(--theme-surface);
+  --page-bg: var(--theme-background);
+  --accent: var(--theme-primary);
+  --accent-soft: var(--theme-accent);
+  --text: var(--theme-text);
+  --muted: var(--theme-muted);
+  --text-on-dark: var(--theme-text-on-dark);
+}
+
+html, body, #root, .App {
+  height: 100%;
+}
+
+body {
+  background: var(--page-bg);
+  font-family: var(--poppins);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
