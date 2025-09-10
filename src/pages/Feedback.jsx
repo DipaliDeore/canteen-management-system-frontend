@@ -147,7 +147,7 @@ function Feedback() {
         <form onSubmit={handleSubmit}>
           {/* Name */}
           <div className="form-group mb-2">
-            <label htmlFor="name" className="form-label small">Name</label>
+            <label htmlFor="name" className="text-white form-label small">Name</label>
             <input
               type="text"
               id="name"
@@ -162,7 +162,7 @@ function Feedback() {
 
           {/* Email */}
           <div className="form-group mb-2">
-            <label htmlFor="email" className="form-label small">Email</label>
+            <label htmlFor="email" className=" text-white form-label small">Email</label>
             <input
               type="email"
               id="email"
@@ -177,7 +177,7 @@ function Feedback() {
 
           {/* Rating */}
           <div className="form-group mb-2">
-            <label className="form-label small">Overall Rating</label>
+            <label className="text-white form-label small">Overall Rating</label>
             <div style={{ display: "flex", gap: "4px", fontSize: "20px" }}>
               {[1, 2, 3, 4, 5].map((star) => (
                 <span
@@ -197,7 +197,7 @@ function Feedback() {
 
           {/* Category */}
           <div className="form-group mb-2">
-            <label htmlFor="category" className="form-label small">Category</label>
+            <label htmlFor="category" className="text-white form-label small">Category</label>
             <select
               id="category"
               className="form-select form-select-sm"
@@ -216,7 +216,7 @@ function Feedback() {
 
           {/* Feedback */}
           <div className="form-group mb-2">
-            <label htmlFor="feedback" className="form-label small">Your Feedback</label>
+            <label htmlFor="feedback" className="text-white form-label small">Your Feedback</label>
             <textarea
               id="feedback"
               ref={textareaRef}

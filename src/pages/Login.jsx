@@ -30,7 +30,7 @@ function Login() {
       localStorage.setItem("user_id", data.user_id);
 
       alert(data.message);
-      navigate("/"); // redirect to homepage
+      navigate("/dashboard"); // redirect to homepage
     } catch (err) {
       setError(err.message);
     }
@@ -125,11 +125,12 @@ function Login() {
           {/* Login Button */}
           <button
             type="submit"
-            className="btn w-100 fw-bold mb-3"
+            className="btn w-100 fw-bold mb-3 d-flex justify-content-center align-items-center"
             style={{ backgroundColor: "#0d6f65", color: "white" }}
           >
             Login
           </button>
+
         </form>
 
         {/* Google Login */}

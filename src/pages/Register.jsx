@@ -190,7 +190,7 @@ function Register() {
           {/* Register Button */}
           <button
             type="submit"
-            className="btn w-100 fw-bold"
+            className="btn w-100 fw-bold mb-3 d-flex justify-content-center align-items-center"
             style={{ backgroundColor: "#0d6f65", color: "white" }}
             disabled={Object.values(errors).some((err) => err !== "")}
           >
